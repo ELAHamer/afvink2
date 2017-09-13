@@ -1,46 +1,68 @@
 package afvinkopdr2;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.*; 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
-public class Afvinkopdr2 extends JFrame implements ActionListener {
+
+public class Afvinkopdr2 extends JFrame implements ActionListener{
     
-    private JButton button;
+    
+    private JButton button; 
+    private JTextField text,text2;
     private JPanel panel;
-    
-    public static void main (String[] args){
+    private JLabel label,label2;
+
+    public static void main(String[] args) {
         Afvinkopdr2 frame = new Afvinkopdr2();
-        frame.setSize(400, 300);
+        frame.setSize(500,500);
         frame.createGUI();
-        frame.show();
+        frame.setVisible(true);
+        frame.setTitle("helemaal mooie ding");
     }
     private void createGUI(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         Container window = getContentPane();
-        window.setLayout(new FlowLayout() );
+        window.setLayout(new FlowLayout());
+        window.setBackground(Color.white);
+        
+        button = new JButton("druk hier");
+        button.addActionListener(this);
+        window.add(button);
+        
+        text = new JTextField(5);
+        label = new JLabel("X");
+        window.add(label);
+        window.add(text);
+        
+        text2 = new JTextField(5);
+        label2 = new JLabel("Y");
+        window.add(label2);
+        window.add(text2);
         
         panel = new JPanel();
-        panel.setPreferredSize(new Dimension(300,200));
+        panel.setPreferredSize(new Dimension(300,300));
         panel.setBackground(Color.white);
         window.add(panel);
         
-        button = new JButton("press");
-        window.add(button);
-        button.addActionListener(this);            
     }
-
-
     @Override
-    public void actionPerformed (ActionEvent event){
-        Graphics paper = panel.getGraphics();
-        paper.drawLine(0, 0, 100, 100);
+    public void actionPerformed(ActionEvent event){
+        System.out.println(text.getText());
+        Graphics paper = panel.getGraphics(); 
+        paper.clearRect(0, 0, 300, 300);
+        String xstring = text.getText();
+        String ystring = text2.getText();
+        int xgoeie = Integer.parseInt(xstring);
+        int ygoeie = Integer.parseInt(ystring);
+        paper.drawLine(xgoeie+20,ygoeie+20,xgoeie+110,ygoeie+110);
+        paper.drawLine(xgoeie+120,ygoeie+120,xgoeie+20,ygoeie+210);
+        paper.setColor(Color.blue);
+        paper.fillOval(xgoeie, ygoeie+175, 60, 60);
+        paper.fillOval(xgoeie, ygoeie, 60, 60);
         paper.setColor(Color.red);
-        paper.drawLine(0, 0, 100, 100);
-        paper.drawOval(0,0,60,60);
-        paper.setColor(Color.yellow);
-        System.out.println("action");
-
-    }   
+        paper.fillOval(xgoeie+95, ygoeie+90, 80, 80);        
+       
+    }
 }
